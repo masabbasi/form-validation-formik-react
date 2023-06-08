@@ -1,16 +1,11 @@
-import React from 'react';
+import React from "react";
 import { useState } from "react";
 import { useFormik } from "formik";
 import { validate } from "../../middleware/validation.js";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Form = () => {
-	const notify = () => {
-		toast.success('Registration Was Successful.', {
-				position: toast.POSITION.TOP_CENTER
-		});
-};
   const [success, setSuccess] = useState(false);
   const formik = useFormik({
     initialValues: {
@@ -23,26 +18,18 @@ const Form = () => {
       confirmPassword: "",
       checkRule: false,
     },
-
-    onSubmit: () => {
-      setSuccess(Object.keys(formik.errors).length === 0 && true);
-      if (success) {
-				toast.success('Registration Was Successful.', {
-					position: toast.POSITION.TOP_CENTER
-			});
-        setTimeout(() => {
-          setSuccess(false);
-        }, 2000);
-      } else {
-				toast.error('Registration Was Not Successful.', {
-					position: toast.POSITION.TOP_CENTER
-			})
+		onSubmit: () => {
+			const isSuccess = Object.keys(formik.errors).length === 0;
+			setSuccess(isSuccess);
+			if (isSuccess) {
+				toast.success('Registration Was Successful.');
 			}
-    },
+		},
     validate,
   });
 
   return (
+		<>
     <form
       onSubmit={formik.handleSubmit}
       className="w-72 flex flex-col items-center justify-center"
@@ -54,12 +41,12 @@ const Form = () => {
         <input
           className="w-72 border border-inherit bg-slate-100	p-1 rounded my-1 hover:bg-slate-300 focus:border-orange-700 text-slate-500"
           type="text"
-					// set with {...formik.getFieldProps("name")}
+          // set with {...formik.getFieldProps("name")}
           // name="name"
           // value={formik.values.name}
           // onChange={formik.handleChange}
           // onBlur={formik.handleBlur}
-					{...formik.getFieldProps("name")}
+          {...formik.getFieldProps("name")}
           placeholder="Name: Masoud"
         />
         {formik.touched.name && formik.errors.name ? (
@@ -73,7 +60,7 @@ const Form = () => {
         <input
           className="w-72 border border-inherit bg-slate-100	p-1 rounded my-1 hover:bg-slate-300 focus:border-orange-700 text-slate-500"
           type="text"
-					{...formik.getFieldProps("familyName")}
+          {...formik.getFieldProps("familyName")}
           placeholder="FamilyName: Abbasi"
         />
         {formik.touched.familyName && formik.errors.familyName ? (
@@ -87,7 +74,7 @@ const Form = () => {
         <input
           className="w-72 border border-inherit bg-slate-100	p-1 rounded my-1 hover:bg-slate-300 focus:border-orange-700 text-slate-500"
           type="text"
-					{...formik.getFieldProps("userName")}
+          {...formik.getFieldProps("userName")}
           placeholder="UserName: My20Masoud"
         />
         {formik.touched.userName && formik.errors.userName ? (
@@ -101,7 +88,7 @@ const Form = () => {
         <input
           className="w-72 border border-inherit bg-slate-100	p-1 rounded my-1 hover:bg-slate-300 focus:border-orange-700 text-slate-500"
           type="email"
-					{...formik.getFieldProps("email")}
+          {...formik.getFieldProps("email")}
           placeholder="Email: Masoud.abbasi.71@gmail.com"
         />
         {formik.touched.email && formik.errors.email ? (
@@ -115,7 +102,7 @@ const Form = () => {
         <input
           className="w-72 border border-inherit bg-slate-100	p-1 rounded my-1 hover:bg-slate-300 focus:border-orange-700 text-slate-500"
           type="phone"
-					{...formik.getFieldProps("phone")}
+          {...formik.getFieldProps("phone")}
           placeholder="Phone: 09359626811"
         />
         {formik.touched.phone && formik.errors.phone ? (
@@ -168,9 +155,11 @@ const Form = () => {
             !
           </span>
         </div>
-        {formik.touched.checkRule && formik.errors.checkRule ? (<div className="text-red-400 text-xs font-bold text-center">
-						{formik.errors.checkRule}
-					</div>) : null}
+        {formik.touched.checkRule && formik.errors.checkRule ? (
+          <div className="text-red-400 text-xs font-bold text-center">
+            {formik.errors.checkRule}
+          </div>
+        ) : null}
       </div>
       <div className="flex flex-col items-center justify-center">
         <button
@@ -181,6 +170,19 @@ const Form = () => {
         </button>
       </div>
     </form>
+		<ToastContainer
+position="top-center"
+autoClose={3000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark"
+/>;
+			</>
   );
 };
 
