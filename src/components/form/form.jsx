@@ -101,7 +101,7 @@ const Form = () => {
       <div className="flex flex-col items-center justify-center">
         <input
           className="w-72 border border-inherit bg-slate-100	p-1 rounded my-1 hover:bg-slate-300 focus:border-orange-700 text-slate-500"
-          type="phone"
+          type="text"
           {...formik.getFieldProps("phone")}
           placeholder="Phone: 09359626811"
         />
@@ -181,7 +181,7 @@ pauseOnFocusLoss
 draggable
 pauseOnHover
 theme="dark"
-/>;
+/>
 			</>
   );
 };
