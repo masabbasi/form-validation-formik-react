@@ -1,7 +1,9 @@
+// import { useState } from "react";
 import { useFormik } from 'formik';
 import { validate } from "../../middleware/validation.js";
 
 const Form = () => {
+	// const [success,setSuccess] = useState(false);
 	const formik = useFormik({
 		initialValues: {
 			name: "",
@@ -14,10 +16,27 @@ const Form = () => {
 			checkRule: false,
 		},
 		validate,
-		onSubmit: values => {
-			alert(JSON.stringify(values, null, 2));
-		},
+	// 	onSubmit: {
+  //   const err = validate(values);
+  //   setError(err);
+	// 	setSuccess(Object.keys(formik.errors).length === 0 && true);
+	// 	if (success) {
+	// 		setTimeout(() => {
+	// 			setSuccess(false);
+	// 			setFormValues({
+	// 				name: "",
+	// 				familyName: "",
+	// 				userName: "",
+	// 				email: "",
+	// 				phone: "",
+	// 				password: "",
+	// 				confirmPassword: "",
+	// 			})
+	// 		}, 2000);
+	// 	}
+	// }
 	});
+
 return (
 			<form
 				onSubmit={formik.handleSubmit}

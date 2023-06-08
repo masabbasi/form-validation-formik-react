@@ -27,7 +27,8 @@ export const validate = (values) => {
           !checkRule
         ) {
           errors.empty = "Enter All Values!";
-        } else {
+        } 
+				
           if (!regName.test(name)) {
             errors.name = "Enter The Correct Name.";
           }
@@ -61,6 +62,6 @@ export const validate = (values) => {
           if (!checkRule) {
             errors.checkRule = "Please Read The Rules And Check If You Agree.";
           }
-        }
+        
         return errors;
 };
