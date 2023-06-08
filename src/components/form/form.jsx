@@ -1,8 +1,16 @@
+import React from 'react';
 import { useState } from "react";
 import { useFormik } from "formik";
 import { validate } from "../../middleware/validation.js";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Form = () => {
+	const notify = () => {
+		toast.success('Registration Was Successful.', {
+				position: toast.POSITION.TOP_CENTER
+		});
+};
   const [success, setSuccess] = useState(false);
   const formik = useFormik({
     initialValues: {
@@ -19,20 +27,17 @@ const Form = () => {
     onSubmit: () => {
       setSuccess(Object.keys(formik.errors).length === 0 && true);
       if (success) {
+				toast.success('Registration Was Successful.', {
+					position: toast.POSITION.TOP_CENTER
+			});
         setTimeout(() => {
           setSuccess(false);
-          // {initialValues: {
-          // 	name: "",
-          // 	familyName: "",
-          // 	userName: "",
-          // 	email: "",
-          // 	phone: "",
-          // 	password: "",
-          // 	confirmPassword: "",
-          // 	checkRule: false,
-          // }}
         }, 2000);
-      }
+      } else {
+				toast.error('Registration Was Not Successful.', {
+					position: toast.POSITION.TOP_CENTER
+			})
+			}
     },
     validate,
   });
@@ -48,11 +53,13 @@ const Form = () => {
       <div className="flex flex-col items-center justify-center">
         <input
           className="w-72 border border-inherit bg-slate-100	p-1 rounded my-1 hover:bg-slate-300 focus:border-orange-700 text-slate-500"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
           type="text"
-          name="name"
-          value={formik.values.name}
+					// set with {...formik.getFieldProps("name")}
+          // name="name"
+          // value={formik.values.name}
+          // onChange={formik.handleChange}
+          // onBlur={formik.handleBlur}
+					{...formik.getFieldProps("name")}
           placeholder="Name: Masoud"
         />
         {formik.touched.name && formik.errors.name ? (
@@ -65,11 +72,8 @@ const Form = () => {
       <div className="flex flex-col items-center justify-center">
         <input
           className="w-72 border border-inherit bg-slate-100	p-1 rounded my-1 hover:bg-slate-300 focus:border-orange-700 text-slate-500"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
           type="text"
-          name="familyName"
-          value={formik.values.familyName}
+					{...formik.getFieldProps("familyName")}
           placeholder="FamilyName: Abbasi"
         />
         {formik.touched.familyName && formik.errors.familyName ? (
@@ -82,11 +86,8 @@ const Form = () => {
       <div className="flex flex-col items-center justify-center">
         <input
           className="w-72 border border-inherit bg-slate-100	p-1 rounded my-1 hover:bg-slate-300 focus:border-orange-700 text-slate-500"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
           type="text"
-          name="userName"
-          value={formik.values.userName}
+					{...formik.getFieldProps("userName")}
           placeholder="UserName: My20Masoud"
         />
         {formik.touched.userName && formik.errors.userName ? (
@@ -99,11 +100,8 @@ const Form = () => {
       <div className="flex flex-col items-center justify-center">
         <input
           className="w-72 border border-inherit bg-slate-100	p-1 rounded my-1 hover:bg-slate-300 focus:border-orange-700 text-slate-500"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
           type="email"
-          name="email"
-          value={formik.values.email}
+					{...formik.getFieldProps("email")}
           placeholder="Email: Masoud.abbasi.71@gmail.com"
         />
         {formik.touched.email && formik.errors.email ? (
@@ -116,11 +114,8 @@ const Form = () => {
       <div className="flex flex-col items-center justify-center">
         <input
           className="w-72 border border-inherit bg-slate-100	p-1 rounded my-1 hover:bg-slate-300 focus:border-orange-700 text-slate-500"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
           type="phone"
-          name="phone"
-          value={formik.values.phone}
+					{...formik.getFieldProps("phone")}
           placeholder="Phone: 09359626811"
         />
         {formik.touched.phone && formik.errors.phone ? (
@@ -133,11 +128,8 @@ const Form = () => {
       <div className="flex flex-col items-center justify-center">
         <input
           className="w-72 border border-inherit bg-slate-100	p-1 rounded my-1 hover:bg-slate-300 focus:border-orange-700 text-slate-500"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
           type="password"
-          name="password"
-          value={formik.values.password}
+          {...formik.getFieldProps("password")}
           placeholder="Password: Masoud1234"
         />
         {formik.touched.password && formik.errors.password ? (
@@ -150,11 +142,8 @@ const Form = () => {
       <div className="flex flex-col items-center justify-center">
         <input
           className="w-72 border border-inherit bg-slate-100	p-1 rounded my-1 hover:bg-slate-300 focus:border-orange-700 text-slate-500"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
           type="password"
-          name="confirmPassword"
-          value={formik.values.confirmPassword}
+          {...formik.getFieldProps("confirmPassword")}
           placeholder="Confirm Password: Masoud1234"
         />
         {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
@@ -167,10 +156,8 @@ const Form = () => {
       <div className="flex flex-col items-center justify-center">
         <div className="flex w-72 p-1 rounded bg-green-700 items-center justify-center mb-2">
           <input
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
             type="checkbox"
-            name="checkRule"
+            {...formik.getFieldProps("checkRule")}
             checked={formik.values.checkRule}
           />
           <span className="ml-2 text-slate-300">
@@ -192,9 +179,6 @@ const Form = () => {
         >
           Sign Up
         </button>
-        <div className="text-green-400 text-xs font-bold text-center">
-          {success ? "Registration Was Successful." : ""}
-        </div>
       </div>
     </form>
   );
